@@ -6,9 +6,22 @@
 <body>
 	<p id="name"></p>
 	<p id="username"></p>
-	
+	<p id="link"></p>
 
 	<script>
+		function generateRandomString(length) {
+			let result = '';
+			let characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+			let charactersLength = characters.length;
+			for (let i = 0; i < length; i++) {
+				result += characters.charAt(Math.floor(Math.random() * charactersLength));
+			}
+			return result;
+		}
+
+		let randomString = generateRandomString(6);
+		let link = "https://issuu.com/signup?plan=basic&returnUrl=%2F&coupon=" + randomString;
+		document.getElementById("link").innerHTML = link;
 		fetch('https://randomuser.me/api/')
 			.then(response => response.json())
 			.then(data => {
