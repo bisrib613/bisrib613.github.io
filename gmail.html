@@ -13,7 +13,7 @@
 		function generateAndSave() {
 			var username = document.getElementById("username").value;
 			var addresses = [];
-			for (var i = 0; i < username.length; i++) {
+			for (var i = 1; i < username.length; i++) {
 				addresses.push(username.slice(0, i) + "." + username.slice(i) + "@gmail.com");
 			}
 			var file = new Blob([addresses.join("\r\n")], {type: "text/plain"});
