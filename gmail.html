@@ -9,23 +9,28 @@
 	<input type="text" id="username">
 	<button onclick="generate()">Generate Addresses</button>
 	<br><br>
-	
-	
+	<p>List of generated addresses:</p>
+	<div id="addresses"></div>
+	<br>
+	<button onclick="saveToFile()">Save to File</button>
+
 	<script>
 		function generate() {
 			var username = document.getElementById("username").value;
 			var addresses = [];
 			for (var i = 0; i < username.length; i++) {
-				addresses.push(username.slice(0, i) + "." + username.slice(i)+"@gmail.com");
+				addresses.push(username.slice(0, i) + "." + username.slice(i));
 			}
-			
-			saveToFile();
+			document.getElementById("addresses").innerHTML = addresses.join("<br>");
 		}
 
 		function saveToFile() {
 			var username = document.getElementById("username").value;
-			var addresses = document.getElementById("addresses").innerText;
-			var file = new Blob([addresses], {type: "text/plain"});
+			var addresses = [];
+			document.querySelectorAll('#addresses div').forEach(function(address) {
+				addresses.push(address.innerHTML.replace("@gmail.com", ""));
+			});
+			var file = new Blob([addresses.join("\r\n")], {type: "text/plain"});
 			var a = document.createElement("a");
 			var url = URL.createObjectURL(file);
 			a.href = url;
@@ -36,7 +41,7 @@
 				document.body.removeChild(a);
 				window.URL.revokeObjectURL(url);
 			}, 0);
-			
+			document.getElementById("addresses").innerHTML = "";
 		}
 	</script>
 </body>
