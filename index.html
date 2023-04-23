@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Random User Name</title>
+</head>
+<body>
+	<p id="name"></p>
+	<p id="username"></p>
+	
+
+	<script>
+		fetch('https://randomuser.me/api/')
+			.then(response => response.json())
+			.then(data => {
+				let name = data.results[0].name.first + " " + data.results[0].name.last;
+				let username = data.results[0].name.first + data.results[0].name.last;
+				document.getElementById("name").innerHTML = name;
+				document.getElementById("username").innerHTML = username;
+			})
+			.catch(error => console.error(error));
+	</script>
+</body>
+</html>
