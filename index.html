@@ -21,7 +21,7 @@
 
 		let randomString = generateRandomString(6);
 		let link = "https://issuu.com/signup?plan=basic&returnUrl=%2F&coupon=" + randomString;
-		document.getElementById("link").innerHTML = link;
+		document.getElementById("link").href = link;
 		fetch('https://randomuser.me/api/')
 			.then(response => response.json())
 			.then(data => {
