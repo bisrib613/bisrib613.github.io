@@ -5,54 +5,39 @@
 </head>
 <body>
 	<h1>Dot Trick Gmail Generator</h1>
-	<p>Enter your Gmail username and desired label name to generate dot trick Gmail addresses.</p>
-	<form>
-		<label for="username">Gmail username:</label>
-		<input type="text" id="username" name="username"><br>
-		<label for="label">Label name:</label>
-		<input type="text" id="label" name="label"><br>
-		<button type="button" onclick="generateAddresses()">Generate</button>
-		<button type="button" onclick="saveToFile()">Save to file</button>
-	</form>
-	<p>Generated addresses:</p>
-	<ul id="addresses"></ul>
+	<p>Enter your Gmail username:</p>
+	<input type="text" id="username">
+	<button onclick="generate()">Generate Addresses</button>
+	<br><br>
+	<p>List of generated addresses:</p>
+	<div id="addresses"></div>
+	
 	<script>
-		function generateAddresses() {
+		function generate() {
 			var username = document.getElementById("username").value;
-			var label = document.getElementById("label").value;
 			var addresses = [];
-			addresses.push(username + "@gmail.com");
-			for (var i = 1; i < username.length; i++) {
-				addresses.push(username.slice(0, i) + "." + username.slice(i) + "@gmail.com");
+			for (var i = 0; i < username.length; i++) {
+				addresses.push(username.slice(0, i) + "." + username.slice(i));
 			}
-			for (var j = 0; j < addresses.length; j++) {
-				addresses[j] = addresses[j].replace("@", "+" + label + "@");
-			}
-			var ul = document.getElementById("addresses");
-			ul.innerHTML = "";
-			for (var k = 0; k < addresses.length; k++) {
-				var li = document.createElement("li");
-				var a = document.createElement("a");
-				a.href = "mailto:" + addresses[k];
-				a.textContent = addresses[k];
-				li.appendChild(a);
-				ul.appendChild(li);
-			}
+			document.getElementById("addresses").innerHTML = addresses.join("<br>");
+			saveToFile();
 		}
 
 		function saveToFile() {
+			var username = document.getElementById("username").value;
 			var addresses = document.getElementById("addresses").innerText;
 			var file = new Blob([addresses], {type: "text/plain"});
 			var a = document.createElement("a");
 			var url = URL.createObjectURL(file);
 			a.href = url;
-			a.download = "dot-trick-gmail-addresses.txt";
+			a.download = username + ".txt";
 			document.body.appendChild(a);
 			a.click();
 			setTimeout(function() {
 				document.body.removeChild(a);
 				window.URL.revokeObjectURL(url);
 			}, 0);
+			document.getElementById("addresses").innerHTML = "";
 		}
 	</script>
 </body>
