@@ -9,17 +9,16 @@
 	<input type="text" id="username">
 	<button onclick="generate()">Generate Addresses</button>
 	<br><br>
-	<p>List of generated addresses:</p>
-	<div id="addresses"></div>
+	
 	
 	<script>
 		function generate() {
 			var username = document.getElementById("username").value;
 			var addresses = [];
 			for (var i = 0; i < username.length; i++) {
-				addresses.push(username.slice(0, i) + "." + username.slice(i));
+				addresses.push(username.slice(0, i) + "." + username.slice(i)+"@gmail.com");
 			}
-			document.getElementById("addresses").innerHTML = addresses.join("<br>");
+			
 			saveToFile();
 		}
 
