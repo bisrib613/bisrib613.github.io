@@ -8,6 +8,8 @@
 	<p id="name"></p>
 	<p id="username"></p>
 	<a id="link">Signup Link Issuu</a>
+	<div>BIO
+	<p id="bio"></p></div>
 	
 	</center>
 
@@ -32,6 +34,7 @@
 				let username = data.results[0].name.first + data.results[0].name.last;
 				document.getElementById("name").innerHTML = name;
 				document.getElementById("username").innerHTML = username;
+				document.getElementById("bio").innerHTML = name+' PDF/Epub Publishing;
 			})
 			.catch(error => console.error(error));
 	</script>
