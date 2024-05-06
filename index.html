@@ -34,7 +34,8 @@
 			.then(response => response.json())
 			.then(data => {
 				let name = data.results[0].name.first + " " + data.results[0].name.last;
-				let username = data.results[0].name.first + data.results[0].name.last;
+				let username = (data.results[0].name.first + data.results[0].name.last).toLowerCase();
+
 				document.getElementById("name").innerHTML = name;
 				document.getElementById("username").innerHTML = username;
 				document.getElementById("bio").innerHTML = name+' PDF/Epub Publishing Ebook';
