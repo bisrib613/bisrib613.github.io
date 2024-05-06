@@ -10,7 +10,9 @@
 	<a id="link">Signup Link Issuu</a>
 	<div>BIO
 	<p id="bio"></p></div>
-	
+	<p></p>
+	<p></p>
+	<a id="refresh">REFRESH PAGE</a>
 	</center>
 
 	<script>
@@ -27,6 +29,7 @@
 		let randomString = generateRandomString(6);
 		let link = "https://issuu.com/signup?plan=basic&returnUrl=%2F&coupon=" + randomString;
 		document.getElementById("link").href = link;
+		document.getElementById("link").href = '.';
 		fetch('https://randomuser.me/api/')
 			.then(response => response.json())
 			.then(data => {
