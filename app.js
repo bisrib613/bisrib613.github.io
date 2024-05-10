@@ -1,8 +1,8 @@
 // Misal menggunakan sebuah API generatif teks yang fiktif
 // Ubah ini dengan detail endpoint API nyata yang Anda gunakan
-import { TextGenerator } from "https://esm.run/@your-api-provider/generative-api";
+import { TextGenerator } from "https://esm.run/@google/generative-ai"";
 
-const generator = new TextGenerator('YOUR_API_KEY');
+const generator = new TextGenerator('AIzaSyCL7_zOsFXLycVmrVA_zpdHNmwkaWJ-lgU');
 
 document.addEventListener('DOMContentLoaded', async () => {
     try {
