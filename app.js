@@ -2,7 +2,7 @@
 // Ubah ini dengan detail endpoint API nyata yang Anda gunakan
 import { TextGenerator } from "https://esm.run/@google/generative-ai"";
 
-const generator = new TextGenerator('AIzaSyCL7_zOsFXLycVmrVA_zpdHNmwkaWJ-lgU');
+const generator = new TextGenerator('AIzaSyBoql50jXzOG1MnIEqf0KQPvRizCOQEKYU');
 
 document.addEventListener('DOMContentLoaded', async () => {
     try {
