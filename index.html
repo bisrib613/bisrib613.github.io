@@ -1,47 +1,73 @@
 <!DOCTYPE html>
 <html>
-<head>
-	<title>Random User Name</title>
-</head>
-<body>
-	<center>
-	<p id="name"></p>
-	<p id="username"></p>
-	<a id="link">Signup Link Issuu</a>
-	<div>BIO
-	<p id="bio"></p></div>
-		<script type="module" src="app.js"></script>
-	<p></p>
-	<p></p>
-	<a id="refresh">REFRESH PAGE</a>
-	</center>
-
-	<script>
-		function generateRandomString(length) {
-			let result = '';
-			let characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-			let charactersLength = characters.length;
-			for (let i = 0; i < length; i++) {
-				result += characters.charAt(Math.floor(Math.random() * charactersLength));
-			}
-			return result;
-		}
-
-		let randomString = generateRandomString(6);
-		let link = "https://issuu.com/signup?plan=basic&returnUrl=%2F&coupon=" + randomString;
-		document.getElementById("link").href = link;
-		document.getElementById("refresh").href = '.';
-		fetch('https://randomuser.me/api/')
-			.then(response => response.json())
-			.then(data => {
-				let name = data.results[0].name.first + " " + data.results[0].name.last;
-				let username = (data.results[0].name.first + data.results[0].name.last).toLowerCase();
-
-				document.getElementById("name").innerHTML = name;
-				document.getElementById("username").innerHTML = username;
-				//document.getElementById("bio").innerHTML = name+' PDF/Epub Publishing Ebook';
-			})
-			.catch(error => console.error(error));
-	</script>
-</body>
+   <head>
+      <script type="importmap">
+         {
+         "imports": {
+         "@google/generative-ai": "https://esm.run/@google/generative-ai"
+         }
+         }
+      </script>
+      <title>Random User Name</title>
+   </head>
+   <body>
+      <center>
+         <p id="name"></p>
+         <p id="username"></p>
+         <a id="link">Signup Link Issuu</a>
+         <div>
+            BIO
+            <p id="bio">Process Generate Bio</p>
+         </div>
+         
+         <p></p>
+         <p></p>
+         <a id="refresh">REFRESH PAGE</a>
+      </center>
+      <script type="module">
+         import { GoogleGenerativeAI } from "@google/generative-ai";
+         let listkey = ["AIzaSyAeMqhL7w0QyJBVGZ22fipjuKofRNSTqsM", "AIzaSyBLOfAy9Q4AULiJB_QHpn1nNJrafpztPLE", "AIzaSyDuq_0-c6Yyf61peo-beEg7OQ8-l2W7okw", "AIzaSyAmHPLvtH7HcJwxsWDNGuL3KrdElFB2Duc"];
+         const API_KEY = get_random(listkey);
+         function get_random (list) {
+         	return list[Math.floor((Math.random()*list.length))];
+         }
+         function generateRandomString(length) {
+         	let result = '';
+         	let characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+         	let charactersLength = characters.length;
+         	for (let i = 0; i < length; i++) {
+         		result += characters.charAt(Math.floor(Math.random() * charactersLength));
+         	}
+         	return result;
+         }
+         async function run() {
+         // For text-only input, use the gemini-pro model
+         const model = genAI.getGenerativeModel({ model: "gemini-pro"});
+         
+         const prompt = "create a bio for social media.Bio may only contain a maximum of 160 characters."
+         
+         const result = await model.generateContent(prompt);
+         const response = await result.response;
+         let text = response.text();
+         text = text.substring(0, 160);
+         //console.log(text);
+         return text;
+         }
+         let randomString = generateRandomString(6);
+         let link = "https://issuu.com/signup?plan=basic&returnUrl=%2F&coupon=" + randomString;
+         document.getElementById("link").href = link;
+         document.getElementById("refresh").href = '.';
+         fetch('https://randomuser.me/api/')
+         	.then(response => response.json())
+         	.then(data => {
+         		let name = data.results[0].name.first + " " + data.results[0].name.last;
+         		let username = (data.results[0].name.first + data.results[0].name.last).toLowerCase();
+         
+         		document.getElementById("name").innerHTML = name;
+         		document.getElementById("username").innerHTML = username;
+         		document.getElementById("bio").innerHTML = await run();
+         	})
+         	.catch(error => console.error(error));
+      </script>
+   </body>
 </html>
