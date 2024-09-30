@@ -56,6 +56,9 @@
          return text;
          }
          let res = await run();
+         if(res){
+            document.getElementById("bio").innerHTML =  res;
+         }
          let randomString = generateRandomString(6);
          let link = "https://issuu.com/signup?plan=basic&returnUrl=%2F&coupon=" + randomString;
          document.getElementById("link").href = link;
@@ -68,7 +71,7 @@
          
          		document.getElementById("name").innerHTML = name;
          		document.getElementById("username").innerHTML = username;
-         		document.getElementById("bio").innerHTML =  res;
+         		
          	})
          	.catch(error => console.error(error));
       </script>
