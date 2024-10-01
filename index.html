@@ -25,11 +25,8 @@
          <a id="refresh">REFRESH PAGE</a>
       </center>
       <script type="module">
-         import { GoogleGenerativeAI } from "@google/generative-ai";
-         let listkey = ["AIzaSyAeMqhL7w0QyJBVGZ22fipjuKofRNSTqsM", "AIzaSyBLOfAy9Q4AULiJB_QHpn1nNJrafpztPLE", "AIzaSyDuq_0-c6Yyf61peo-beEg7OQ8-l2W7okw", "AIzaSyAmHPLvtH7HcJwxsWDNGuL3KrdElFB2Duc"];
-         const API_KEY = get_random(listkey);
-         const genAI = new GoogleGenerativeAI(API_KEY);
-         console.log(API_KEY)
+                  import { GoogleGenerativeAI } from "@google/generative-ai";
+        
          function get_random (list) {
          	return list[Math.floor((Math.random()*list.length))];
          }
@@ -43,17 +40,26 @@
          	return result;
          }
          async function run() {
-         // For text-only input, use the gemini-pro model
-         const model = genAI.getGenerativeModel({ model: "gemini-pro"});
-         
-         const prompt = "create a bio for social media.Bio may only contain a maximum of 160 characters.."
-         
-         const result = await model.generateContent(prompt);
-         const response = await result.response;
-         let text = response.text();
-         text = text.substring(0, 160);
-         //console.log(text);
-         return text;
+                let listkey = ["AIzaSyAeMqhL7w0QyJBVGZ22fipjuKofRNSTqsM", "AIzaSyBLOfAy9Q4AULiJB_QHpn1nNJrafpztPLE", "AIzaSyDuq_0-c6Yyf61peo-beEg7OQ8-l2W7okw", "AIzaSyAmHPLvtH7HcJwxsWDNGuL3KrdElFB2Duc"];
+                const API_KEY = get_random(listkey);
+                try {
+                        const genAI = new GoogleGenerativeAI(API_KEY);
+                        console.log(API_KEY)
+                        // For text-only input, use the gemini-pro model
+                        const model = genAI.getGenerativeModel({ model: "gemini-pro"});
+                        
+                        const prompt = "create a bio for social media.Bio may only contain a maximum of 160 characters.."
+                        
+                        const result = await model.generateContent(prompt);
+                        const response = await result.response;
+                        let text = response.text();
+                        text = text.substring(0, 160);
+                        //console.log(text);
+                        return text;
+                
+                } catch (error) {
+                        
+                }
          }
         
          let randomString = generateRandomString(6);
@@ -72,9 +78,10 @@
          	})
          	.catch(error => console.error(error));
           let res = await run();
-         if(res){
+          if(res){
             document.getElementById("bio").innerHTML =  res;
-         }
+          }
+      
       </script>
    </body>
 </html>
